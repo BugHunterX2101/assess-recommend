@@ -73,7 +73,7 @@ async def chat(
         raise HTTPException(status_code=408, detail="Request timed out. Please try again.")
     except Exception as exc:
         logger.exception("Agent call failed: %s", exc)
-        raise HTTPException(status_code=500, detail=f"[DBG] {type(exc).__name__}: {str(exc)[:400]}")
+        raise HTTPException(status_code=500, detail="Internal error processing your request.")
 
     # Build validated response
     recommendations = [
