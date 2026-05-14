@@ -16,7 +16,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from groq import Groq
+from openai import OpenAI
 
 from app.config import settings
 from app.routers import chat, health
@@ -45,8 +45,11 @@ async def lifespan(app: FastAPI):
         logger.critical(str(exc))
         sys.exit(1)
 
-    # Initialise Groq client
-    app.state.llm_client = Groq(api_key=settings.llm_api_key)
+    # Initialise Gemini client via OpenAI-compatible endpoint
+    app.state.llm_client = OpenAI(
+        api_key=settings.llm_api_key,
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    )
     app.state.settings = settings
 
     logger.info("Service ready. LLM: %s / %s", settings.llm_provider, settings.llm_model)
