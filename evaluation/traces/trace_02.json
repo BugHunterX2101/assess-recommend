@@ -1,0 +1,11 @@
+{
+  "id": "trace_02",
+  "description": "Data scientist role",
+  "persona": "TA specialist hiring for a senior data scientist position",
+  "expected_shortlist": ["Python (New)", "Data Analysis with Python", "Machine Learning Fundamentals", "Verify Numerical Reasoning", "OPQ32r"],
+  "turns": [
+    {"user": "We are hiring a senior data scientist with 7+ years of experience."},
+    {"user": "They need strong Python and machine learning skills. Statistical reasoning is also important."},
+    {"user": "Can you also suggest a personality questionnaire?"}
+  ]
+}

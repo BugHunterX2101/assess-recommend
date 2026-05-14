@@ -1,0 +1,36 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+
+# Generated data (built at Docker build time)
+data/faiss.index
+data/catalog_metadata.json
+
+# Test / evaluation output
+evaluation/reports/*.json
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

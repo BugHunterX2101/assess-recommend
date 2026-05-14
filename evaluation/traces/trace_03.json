@@ -1,0 +1,11 @@
+{
+  "id": "trace_03",
+  "description": "Graduate management trainee",
+  "persona": "HR manager running graduate recruitment program",
+  "expected_shortlist": ["Graduate Battery", "Verify G+", "OPQ32r", "Business Judgement Assessment", "Motivation Questionnaire (MQ)"],
+  "turns": [
+    {"user": "I'm running a graduate recruitment program for management trainees."},
+    {"user": "We need cognitive ability tests suitable for graduate-level candidates with no prior work experience."},
+    {"user": "Also include a situational judgement test."}
+  ]
+}
