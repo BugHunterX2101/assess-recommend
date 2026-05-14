@@ -23,7 +23,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from app.config import settings
 from ingestion.indexer import build_index
 from ingestion.parser import parse_catalog
-from ingestion.scraper import scrape_catalog
 
 logging.basicConfig(
     level=logging.INFO,
@@ -35,21 +34,21 @@ logger = logging.getLogger("build_index")
 def main() -> None:
     logger.info("=== SHL Catalog Ingestion Pipeline ===")
 
-    # Step 1: Scrape (or load fallback)
-    raw_entries = scrape_catalog()
+    # Step 1: Load static catalog (pre-populated from SHL product catalog API)
+    catalog_path = Path(settings.catalog_path)
+    if not catalog_path.exists():
+        logger.critical("catalog.json not found at %s. Aborting.", catalog_path)
+        sys.exit(1)
+
+    with open(catalog_path, encoding="utf-8") as f:
+        raw_entries = json.load(f)
+    logger.info("Loaded %d raw entries from %s", len(raw_entries), catalog_path)
 
     # Step 2: Parse + validate
     catalog = parse_catalog(raw_entries)
     if not catalog:
         logger.critical("No valid catalog entries found. Aborting.")
         sys.exit(1)
-
-    # Step 3: Save catalog.json
-    catalog_path = Path(settings.catalog_path)
-    catalog_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(catalog_path, "w", encoding="utf-8") as f:
-        json.dump(catalog, f, indent=2, ensure_ascii=False)
-    logger.info("Catalog saved: %s (%d entries)", catalog_path, len(catalog))
 
     # Step 4 & 5: Embed + index
     build_index(
