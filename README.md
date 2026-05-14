@@ -29,7 +29,7 @@ graph TD
     Classifier --> Retriever["Semantic Retriever\nFAISS + sentence-transformers"]
     Retriever --> VectorStore[("FAISS Index\ndata/faiss.index")]
     Classifier --> PromptBuilder["Prompt Builder"]
-    PromptBuilder --> LLM["OpenAI LLM\ngpt-4o-mini"]
+    PromptBuilder --> LLM["Groq LLM\nllama-3.3-70b-versatile"]
     LLM --> ResponseParser["Response Parser"]
     ResponseParser -->|reply + recommendations| Client
     VectorStore -.->|built from| Catalog[("SHL Catalog\ndata/catalog.json")]
@@ -44,7 +44,7 @@ sequenceDiagram
     participant G as Guardrails
     participant SC as State Classifier
     participant R as FAISS Retriever
-    participant L as OpenAI LLM
+    participant L as Groq LLM
 
     C->>F: POST /chat {messages}
     F->>G: Check prompt safety
@@ -207,7 +207,7 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Fill in your OpenAI API key in .env
+# Fill in your Groq API key in .env
 ```
 
 ### 3. Build the FAISS index
@@ -261,9 +261,9 @@ The Dockerfile handles everything in a single build:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `LLM_PROVIDER` | LLM backend | `openai` |
-| `LLM_API_KEY` | OpenAI API key | — |
-| `LLM_MODEL` | Model name | `gpt-4o-mini` |
+| `LLM_PROVIDER` | LLM backend | `groq` |
+| `LLM_API_KEY` | Groq API key | — |
+| `LLM_MODEL` | Model name | `llama-3.3-70b-versatile` |
 | `VECTOR_STORE_PATH` | FAISS index path | `data/faiss.index` |
 | `CATALOG_PATH` | Catalog JSON path | `data/catalog.json` |
 | `CATALOG_METADATA_PATH` | Metadata JSON path | `data/catalog_metadata.json` |

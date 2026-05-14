@@ -4,7 +4,7 @@ FastAPI application entry point.
 Startup sequence:
   1. Load settings from environment
   2. Load FAISS vector store
-  3. Initialise OpenAI LLM client
+  3. Initialise Groq LLM client (OpenAI-compatible)
   4. Mount routers
 """
 
@@ -45,9 +45,10 @@ async def lifespan(app: FastAPI):
         logger.critical(str(exc))
         sys.exit(1)
 
-    # Initialise OpenAI client
+    # Initialise Groq client via OpenAI-compatible endpoint
     app.state.llm_client = OpenAI(
         api_key=settings.llm_api_key,
+        base_url="https://api.groq.com/openai/v1",
     )
     app.state.settings = settings
 

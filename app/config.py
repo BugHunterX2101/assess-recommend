@@ -11,9 +11,9 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     # LLM
-    llm_provider: str = "openai"
+    llm_provider: str = "groq"
     llm_api_key: str = ""
-    llm_model: str = "gpt-4o-mini"
+    llm_model: str = "llama-3.3-70b-versatile"
 
     # Paths
     vector_store_path: str = "data/faiss.index"
