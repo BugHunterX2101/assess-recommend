@@ -21,15 +21,22 @@ class AgentState(str, Enum):
 # Keywords that indicate sufficient context for a recommendation
 _ROLE_SIGNALS = [
     r"\b(developer|engineer|analyst|manager|designer|scientist|architect|specialist|consultant|"
-    r"administrator|coordinator|director|recruiter|recruitement|hr|executive|officer|lead|head)\b",
+    r"administrator|coordinator|director|recruiter|recruitment|hr|executive|officer|lead|head|"
+    r"leadership|agent|representative|rep|operator|technician|associate|trainee|intern|staff|"
+    r"nurse|doctor|physician|accountant|lawyer|attorney|sales|marketing|finance|audit)\b",
 ]
 _QUALIFIER_SIGNALS = [
     r"\b(junior|mid[\s-]?level|senior|entry[\s-]?level|graduate|experienced|seniority|"
-    r"years?\s+of\s+experience|\d+\s*\+?\s*years?)\b",
-    r"\b(java|python|sql|javascript|c\+\+|\.net|rust|aws|cloud|devops|machine\s+learning|"
-    r"data|excel|software|frontend|backend|fullstack|full[\s-]?stack)\b",
-    r"\b(personality|cognitive|aptitude|situational|verbal|numerical|reasoning|skills?)\b",
-    r"\b(remote|onsite|on[\s-]?site|hybrid|contract|permanent|full[\s-]?time|part[\s-]?time)\b",
+    r"years?\s+of\s+experience|\d+\s*\+?\s*years?|cxo|director[\s-]level|c[\s-]?suite)\b",
+    r"\b(java|python|sql|javascript|typescript|c\+\+|\.net|rust|aws|cloud|devops|"
+    r"machine\s+learning|data|excel|word|software|frontend|backend|fullstack|full[\s-]?stack|"
+    r"spring|angular|react|docker|kubernetes|linux|networking)\b",
+    r"\b(personality|cognitive|aptitude|situational|verbal|numerical|reasoning|skills?|"
+    r"knowledge|behaviour|behavioral|safety|dependability|bilingual|language)\b",
+    r"\b(remote|onsite|on[\s-]?site|hybrid|contract|permanent|full[\s-]?time|part[\s-]?time|"
+    r"high[\s-]?volume|screening|selection|development|talent|audit)\b",
+    r"\b(contact\s+cent(?:er|re)|call\s+cent(?:er|re)|customer\s+service|chemical|"
+    r"manufacturing|industrial|healthcare|hospital|clinic|retail|warehouse|plant)\b",
 ]
 
 _REFINE_SIGNALS = [

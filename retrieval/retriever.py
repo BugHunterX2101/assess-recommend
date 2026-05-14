@@ -29,8 +29,8 @@ def retrieve(messages: list[dict], k: int = 15) -> list[dict]:
         logger.warning("No user turns found in messages for retrieval.")
         return []
 
-    # Use last 3 user turns for richer context
-    query_text = " ".join(user_turns[-3:])
+    # Use all user turns to maximise recall across the full conversation
+    query_text = " ".join(user_turns)
     logger.debug("Retrieval query: %r", query_text[:120])
 
     query_vector = embedder.encode([query_text])

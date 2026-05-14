@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     # LLM
     llm_provider: str = "groq"
     llm_api_key: str = ""
-    llm_model: str = "llama-3.3-70b-versatile"
+    llm_model: str = "llama-3.1-8b-instant"
 
     # Paths
     vector_store_path: str = "data/faiss.index"
@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     # Limits
     max_turns: int = 8
     request_timeout_s: int = 30
-    top_k_retrieval: int = 15
+    top_k_retrieval: int = 20
 
 
 # Singleton settings instance
