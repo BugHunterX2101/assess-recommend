@@ -6,7 +6,7 @@ Flow per request:
   2. Check guardrails on last user message
   3. Retrieve top-K catalog entries
   4. Build system prompt
-  5. Call LLM (Groq)
+  5. Call LLM
   6. Parse and validate response
 """
 
@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import logging
 
-from groq import Groq
+from openai import OpenAI
 
 from agent import guardrails, prompt_builder, response_parser, state_classifier
 from retrieval import retriever, vector_store
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 def run(
     messages: list[dict],
-    llm_client: Groq,
+    llm_client: OpenAI,
     model: str,
     max_turns: int = 8,
     top_k: int = 15,
@@ -34,8 +34,8 @@ def run(
 
     Args:
         messages: Full conversation history (role + content dicts).
-        llm_client: Initialised Groq client.
-        model: Groq model identifier string.
+        llm_client: Initialised OpenAI-compatible client.
+        model: LLM model identifier string.
         max_turns: Maximum conversation turns from config.
         top_k: Number of catalog entries to retrieve.
 

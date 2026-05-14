@@ -4,7 +4,7 @@ FastAPI application entry point.
 Startup sequence:
   1. Load settings from environment
   2. Load FAISS vector store
-  3. Initialise Groq LLM client
+  3. Initialise Gemini LLM client
   4. Mount routers
 """
 

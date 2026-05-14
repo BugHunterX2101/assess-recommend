@@ -30,7 +30,7 @@ def client():
         patch("retrieval.vector_store.get_all_urls", return_value=VALID_CATALOG_URLS),
         patch("retrieval.retriever.retrieve", return_value=[]),
         patch("agent.agent.run", return_value=MOCK_AGENT_RESPONSE),
-        patch("groq.Groq"),
+        patch("openai.OpenAI"),
     ):
         from app.main import app
         with TestClient(app, raise_server_exceptions=False) as c:

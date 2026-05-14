@@ -7,11 +7,11 @@ from unittest.mock import MagicMock, patch
 
 @pytest.fixture
 def client():
-    """Create a test client with mocked vector store and Groq client."""
+    """Create a test client with mocked vector store and LLM client."""
     with (
         patch("retrieval.vector_store.load"),
         patch("retrieval.vector_store.get_all_urls", return_value=set()),
-        patch("groq.Groq"),
+        patch("openai.OpenAI"),
     ):
         from app.main import app
         with TestClient(app, raise_server_exceptions=False) as c:
