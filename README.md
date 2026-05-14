@@ -29,7 +29,7 @@ graph TD
     Classifier --> Retriever["Semantic Retriever\nFAISS + sentence-transformers"]
     Retriever --> VectorStore[("FAISS Index\ndata/faiss.index")]
     Classifier --> PromptBuilder["Prompt Builder"]
-    PromptBuilder --> LLM["Gemini LLM\ngemini-2.0-flash"]
+    PromptBuilder --> LLM["OpenAI LLM\ngpt-4o-mini"]
     LLM --> ResponseParser["Response Parser"]
     ResponseParser -->|reply + recommendations| Client
     VectorStore -.->|built from| Catalog[("SHL Catalog\ndata/catalog.json")]
@@ -44,7 +44,7 @@ sequenceDiagram
     participant G as Guardrails
     participant SC as State Classifier
     participant R as FAISS Retriever
-    participant L as Gemini LLM
+    participant L as OpenAI LLM
 
     C->>F: POST /chat {messages}
     F->>G: Check prompt safety
@@ -207,7 +207,7 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Fill in your Gemini API key in .env
+# Fill in your OpenAI API key in .env
 ```
 
 ### 3. Build the FAISS index
@@ -261,9 +261,9 @@ The Dockerfile handles everything in a single build:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `LLM_PROVIDER` | LLM backend | `gemini` |
-| `LLM_API_KEY` | Gemini API key | — |
-| `LLM_MODEL` | Model name | `gemini-2.0-flash` |
+| `LLM_PROVIDER` | LLM backend | `openai` |
+| `LLM_API_KEY` | OpenAI API key | — |
+| `LLM_MODEL` | Model name | `gpt-4o-mini` |
 | `VECTOR_STORE_PATH` | FAISS index path | `data/faiss.index` |
 | `CATALOG_PATH` | Catalog JSON path | `data/catalog.json` |
 | `CATALOG_METADATA_PATH` | Metadata JSON path | `data/catalog_metadata.json` |

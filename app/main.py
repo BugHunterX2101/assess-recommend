@@ -4,7 +4,7 @@ FastAPI application entry point.
 Startup sequence:
   1. Load settings from environment
   2. Load FAISS vector store
-  3. Initialise Gemini LLM client
+  3. Initialise OpenAI LLM client
   4. Mount routers
 """
 
@@ -45,10 +45,9 @@ async def lifespan(app: FastAPI):
         logger.critical(str(exc))
         sys.exit(1)
 
-    # Initialise Gemini client via OpenAI-compatible endpoint
+    # Initialise OpenAI client
     app.state.llm_client = OpenAI(
         api_key=settings.llm_api_key,
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
     )
     app.state.settings = settings
 
