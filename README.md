@@ -1,6 +1,5 @@
 ---
 title: SHL Assessment Recommender
-emoji: 🎯
 colorFrom: blue
 colorTo: indigo
 sdk: docker
