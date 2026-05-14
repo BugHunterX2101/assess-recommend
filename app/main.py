@@ -15,6 +15,7 @@ import sys
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from groq import Groq
 
 from app.config import settings
@@ -65,3 +66,8 @@ app = FastAPI(
 
 app.include_router(health.router)
 app.include_router(chat.router)
+
+
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/docs")
