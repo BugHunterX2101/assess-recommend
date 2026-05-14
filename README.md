@@ -1,3 +1,13 @@
+---
+title: SHL Assessment Recommender
+emoji: 🎯
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # SHL Assessment Recommender
 
 A stateless, production-grade REST API that uses a Retrieval-Augmented Generation (RAG) pipeline to guide hiring professionals from a vague intent to a catalog-grounded shortlist of SHL Individual Test Solutions through natural dialogue.
