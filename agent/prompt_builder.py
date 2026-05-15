@@ -14,6 +14,14 @@ import json
 
 from agent.state_classifier import AgentState
 
+_EOC_PHRASES = (
+    "'perfect', 'confirmed', 'that works', 'thanks', 'great', 'done', "
+    "'good', 'sounds good', 'that covers it', 'locking it in', 'keep it', 'clear', "
+    "'ok', 'yes', 'approved', 'locked', 'finalized', 'that\\'s it', 'looks good', "
+    "'keep that', 'confirmed', 'keep the shortlist', 'keep the list', 'keep the five', "
+    "'keep the stack', 'this works', 'we\\'re good', 'understood', 'final'"
+)
+
 _BEHAVIOR_RULES = {
     AgentState.CLARIFY: (
         "You are in CLARIFY mode. The user has not yet provided enough context to make a recommendation. "
@@ -27,10 +35,14 @@ _BEHAVIOR_RULES = {
         "Scan ALL entries in the CATALOG CONTEXT and include EVERY assessment that is genuinely relevant "
         "to the role, skills, or requirements described. Do not arbitrarily limit to 3 — if 7 or 8 "
         "assessments are relevant, include all of them (maximum 10). "
-        "Briefly explain the fit for each. "
+        "EXCEPTION: If one single critical piece of information is still missing that would significantly "
+        "change which specific product variant to recommend (e.g., English accent region for SVAR spoken "
+        "language tests, or specific language for spoken assessments), ask that ONE focused question and "
+        "return [] for recommendations this turn. Otherwise always give recommendations. "
+        "Briefly explain the fit for each recommendation. "
         "CRITICAL: only use names and URLs copied verbatim from the catalog context — never fabricate. "
-        "Set end_of_conversation to true ONLY when the user explicitly confirms the shortlist is final "
-        "(e.g. 'perfect', 'confirmed', 'that works', 'thanks', 'great', 'done'). "
+        f"Set end_of_conversation to true when the user explicitly confirms the shortlist is final "
+        f"(e.g. {_EOC_PHRASES}). "
         "Set end_of_conversation to false when presenting recommendations for the first time."
     ),
     AgentState.REFINE: (
@@ -40,7 +52,8 @@ _BEHAVIOR_RULES = {
         "add new ones from the CATALOG CONTEXT that now fit. Carry forward unchanged items. "
         "Only use assessments from the CATALOG CONTEXT. "
         "Acknowledge the change briefly, then present the full updated shortlist. "
-        "Set end_of_conversation to true if the user confirms satisfaction, false otherwise."
+        f"Set end_of_conversation to true when the user confirms satisfaction (e.g. {_EOC_PHRASES}), "
+        "false otherwise."
     ),
     AgentState.COMPARE: (
         "You are in COMPARE mode. The user wants to compare specific assessments. "
@@ -49,7 +62,8 @@ _BEHAVIOR_RULES = {
         "After the comparison, include the full current shortlist in recommendations (not just the "
         "compared items) so the user can see the complete picture. "
         "Only reference assessments from the catalog. "
-        "Set end_of_conversation to false."
+        f"Set end_of_conversation to true when the user confirms satisfaction (e.g. {_EOC_PHRASES}), "
+        "false otherwise."
     ),
 }
 

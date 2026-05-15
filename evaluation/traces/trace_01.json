@@ -2,7 +2,7 @@
   "id": "trace_01",
   "description": "Java mid-level developer hiring",
   "persona": "Hiring manager looking for mid-level Java backend developer tests",
-  "expected_shortlist": ["Java 8 (New)", "Verify Interactive - Java", "Verify Inductive Reasoning", "OPQ32r"],
+  "expected_shortlist": ["Java 8 (New)", "Core Java (Entry Level) (New)", "SHL Verify Interactive G+", "Occupational Personality Questionnaire OPQ32r", "Verify - Inductive Reasoning (2014)"],
   "turns": [
     {"user": "I need to hire a mid-level Java developer. What assessments do you recommend?"},
     {"user": "They will be working on enterprise backend services, around 3-5 years experience."},

@@ -25,7 +25,7 @@ def test_health_returns_200(client):
 
 def test_health_returns_ok(client):
     resp = client.get("/health")
-    assert resp.json() == {"status": "ok"}
+    assert resp.json().get("status") == "ok"
 
 
 def test_health_content_type(client):

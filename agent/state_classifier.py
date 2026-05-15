@@ -23,7 +23,8 @@ _ROLE_SIGNALS = [
     r"\b(developer|engineer|analyst|manager|designer|scientist|architect|specialist|consultant|"
     r"administrator|coordinator|director|recruiter|recruitment|hr|executive|officer|lead|head|"
     r"agent|representative|rep|operator|technician|associate|trainee|intern|"
-    r"nurse|doctor|physician|accountant|attorney|teller|clerk)\b",
+    r"nurse|doctor|physician|accountant|attorney|teller|clerk|"
+    r"admin|assistant|staff|advisor|sales|counselor|worker|personnel)\b",
 ]
 _QUALIFIER_SIGNALS = [
     r"\b(junior|mid[\s-]?level|senior|entry[\s-]?level|graduate|experienced|seniority|"

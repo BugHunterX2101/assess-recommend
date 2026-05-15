@@ -31,7 +31,7 @@ _OFF_TOPIC_PATTERNS: list[re.Pattern] = [
     re.compile(r"\b(salary|compensation|pay\s+scale|wage)\b", re.IGNORECASE),
     re.compile(r"\b(visa|immigration|discrimination)\b", re.IGNORECASE),
     re.compile(r"\b(legal\s+advice|sue\s+the\s+company|file\s+a\s+lawsuit)\b", re.IGNORECASE),
-    re.compile(r"\b(how\s+to\s+interview|interview\s+question|offer\s+letter)\b", re.IGNORECASE),
+    re.compile(r"\b(how\s+to\s+interview|interview\s+questions?|offer\s+letter)\b", re.IGNORECASE),
     re.compile(r"\b(write\s+me\s+(a|an)\s+(essay|poem|story|code))\b", re.IGNORECASE),
     re.compile(r"\b(stock\s+price|cryptocurrency|invest(ment|ing)?)\b", re.IGNORECASE),
     re.compile(r"\b(medical\s+advice|diagnosis|prescri(be|ption))\b", re.IGNORECASE),

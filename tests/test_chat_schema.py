@@ -25,6 +25,9 @@ MOCK_AGENT_RESPONSE = {
 
 @pytest.fixture
 def client():
+    # Ensure agent.agent submodule is loaded before patch() tries to resolve it
+    import agent.agent  # noqa: F401
+
     with (
         patch("retrieval.vector_store.load"),
         patch("retrieval.vector_store.get_all_urls", return_value=VALID_CATALOG_URLS),

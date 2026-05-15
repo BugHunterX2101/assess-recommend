@@ -12,6 +12,7 @@ import logging
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from openai import RateLimitError
 
 from agent import agent
 from app.models.request import ChatRequest
@@ -71,6 +72,12 @@ async def chat(
     except asyncio.TimeoutError:
         logger.error("Agent call timed out after %d seconds.", timeout)
         raise HTTPException(status_code=408, detail="Request timed out. Please try again.")
+    except RateLimitError:
+        logger.warning("LLM provider rate limit reached.")
+        raise HTTPException(
+            status_code=429,
+            detail="Service temporarily rate limited. Please retry in a few seconds.",
+        )
     except Exception as exc:
         logger.exception("Agent call failed: %s", exc)
         raise HTTPException(status_code=500, detail="Internal error processing your request.")

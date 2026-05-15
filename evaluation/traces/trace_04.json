@@ -2,7 +2,7 @@
   "id": "trace_04",
   "description": "Customer service role — vague start, clarify flow",
   "persona": "Recruiter with a vague initial query for customer support staff",
-  "expected_shortlist": ["Customer Service Aptitude", "Verify Verbal Reasoning", "Call Centre Aptitude"],
+  "expected_shortlist": ["Entry Level Customer Service (General) Solution", "Entry Level Customer Serv-Retail & Contact Center", "Verify - Verbal Ability - Next Generation", "Occupational Personality Questionnaire OPQ32r"],
   "turns": [
     {"user": "I need some tests for customer service people."},
     {"user": "They will be working in a call centre handling inbound customer queries."},

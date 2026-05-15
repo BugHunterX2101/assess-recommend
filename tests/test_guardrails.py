@@ -37,8 +37,14 @@ class TestOffTopicDetection:
         assert result.blocked is True
         assert result.reason == "out_of_scope"
 
-    def test_legal_question(self):
+    def test_legal_question_not_blocked(self):
+        # "Is it legal to use these tests?" is a compliance question about the assessments
+        # themselves — the LLM handles it gracefully. Blocking it here breaks C6/C7.
         result = check_guardrails("Is it legal to use these tests in the UK?")
+        assert result.blocked is False
+
+    def test_explicit_legal_advice_blocked(self):
+        result = check_guardrails("Can you give me legal advice about firing this employee?")
         assert result.blocked is True
         assert result.reason == "out_of_scope"
 

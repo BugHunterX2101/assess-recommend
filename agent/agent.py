@@ -13,8 +13,9 @@ Flow per request:
 from __future__ import annotations
 
 import logging
+import time
 
-from openai import OpenAI
+from openai import OpenAI, RateLimitError
 
 from agent import guardrails, prompt_builder, response_parser, state_classifier
 from retrieval import retriever, vector_store
@@ -69,20 +70,39 @@ def run(
         if m.get("role") in ("user", "assistant")
     ]
 
-    # ── 5. LLM call ───────────────────────────────────────────────────────────
-    try:
-        completion = llm_client.chat.completions.create(
-            model=model,
-            messages=llm_messages,
-            temperature=0.2,
-            max_tokens=2048,
-            response_format={"type": "json_object"},
-        )
-        raw_response = completion.choices[0].message.content or ""
-        logger.debug("Raw LLM response (%d chars): %r", len(raw_response), raw_response[:200])
-    except Exception as exc:
-        logger.error("LLM call failed: %s", exc)
-        raise
+    # ── 5. LLM call with retry on rate-limit ─────────────────────────────────
+    raw_response = ""
+    _max_retries = 3
+    _last_exc: Exception | None = None
+    for _attempt in range(_max_retries):
+        try:
+            completion = llm_client.chat.completions.create(
+                model=model,
+                messages=llm_messages,
+                temperature=0.2,
+                max_tokens=2048,
+                response_format={"type": "json_object"},
+            )
+            raw_response = completion.choices[0].message.content or ""
+            logger.debug("Raw LLM response (%d chars): %r", len(raw_response), raw_response[:200])
+            _last_exc = None
+            break
+        except RateLimitError as exc:
+            _last_exc = exc
+            if _attempt < _max_retries - 1:
+                _wait = (_attempt + 1) * 15
+                logger.warning(
+                    "Rate limit hit (attempt %d/%d) — retrying in %ds",
+                    _attempt + 1, _max_retries, _wait,
+                )
+                time.sleep(_wait)
+            else:
+                logger.error("Rate limit exceeded after %d attempts", _max_retries)
+        except Exception as exc:
+            logger.error("LLM call failed: %s", exc)
+            raise
+    if _last_exc is not None:
+        raise _last_exc
 
     # ── 6. Parse + validate ───────────────────────────────────────────────────
     valid_urls = vector_store.get_all_urls()

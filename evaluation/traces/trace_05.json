@@ -2,7 +2,7 @@
   "id": "trace_05",
   "description": "DevOps / Cloud engineer",
   "persona": "Engineering manager hiring a senior DevOps engineer",
-  "expected_shortlist": ["DevOps Knowledge Assessment", "AWS Cloud Practitioner Knowledge", "Verify Inductive Reasoning", "Technology Professional Battery"],
+  "expected_shortlist": ["Amazon Web Services (AWS) Development (New)", "Cloud Computing (New)", "Kubernetes (New)", "SHL Verify Interactive G+", "Occupational Personality Questionnaire OPQ32r"],
   "turns": [
     {"user": "We're looking for a senior DevOps engineer with AWS and Kubernetes experience."},
     {"user": "They should have strong cloud infrastructure and CI/CD pipeline expertise, around 5+ years."},
