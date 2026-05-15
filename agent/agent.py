@@ -76,6 +76,7 @@ def run(
             messages=llm_messages,
             temperature=0.2,
             max_tokens=2048,
+            response_format={"type": "json_object"},
         )
         raw_response = completion.choices[0].message.content or ""
         logger.debug("Raw LLM response (%d chars): %r", len(raw_response), raw_response[:200])

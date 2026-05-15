@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     # LLM
     llm_provider: str = "huggingface"
     llm_api_key: str = ""
-    llm_model: str = "Qwen/Qwen2.5-72B-Instruct"
+    llm_model: str = "meta-llama/Llama-3.3-70B-Instruct"
 
     # Paths
     vector_store_path: str = "data/faiss.index"
@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # Limits
     max_turns: int = 8
-    request_timeout_s: int = 30
+    request_timeout_s: int = 45
     top_k_retrieval: int = 20
 
 
