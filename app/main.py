@@ -45,14 +45,22 @@ async def lifespan(app: FastAPI):
         logger.critical(str(exc))
         sys.exit(1)
 
-    # Initialise LLM client via HF Router (OpenAI-compatible)
+    # Select base URL based on provider setting
+    _PROVIDER_BASE_URLS = {
+        "groq": "https://api.groq.com/openai/v1",
+        "openrouter": "https://openrouter.ai/api/v1",
+        "gemini": "https://generativelanguage.googleapis.com/v1beta/openai",
+        "huggingface": "https://router.huggingface.co/v1",
+    }
+    base_url = _PROVIDER_BASE_URLS.get(settings.llm_provider, "https://router.huggingface.co/v1")
+
     app.state.llm_client = OpenAI(
         api_key=settings.llm_api_key,
-        base_url="https://router.huggingface.co/v1",
+        base_url=base_url,
     )
     app.state.settings = settings
 
-    logger.info("Service ready. LLM: %s / %s", settings.llm_provider, settings.llm_model)
+    logger.info("Service ready. LLM: %s / %s (base=%s)", settings.llm_provider, settings.llm_model, base_url)
     yield
     logger.info("Shutting down.")
 

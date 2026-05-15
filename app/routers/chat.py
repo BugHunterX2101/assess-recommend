@@ -80,7 +80,7 @@ async def chat(
         )
     except Exception as exc:
         logger.exception("Agent call failed: %s", exc)
-        raise HTTPException(status_code=500, detail=f"[{type(exc).__name__}] {exc}")
+        raise HTTPException(status_code=500, detail="Internal error processing your request.")
 
     # Build validated response
     recommendations = [
