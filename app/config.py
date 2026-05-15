@@ -11,9 +11,9 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     # LLM
-    llm_provider: str = "gemini"
+    llm_provider: str = "huggingface"
     llm_api_key: str = ""
-    llm_model: str = "gemini-2.0-flash"
+    llm_model: str = "Qwen/Qwen2.5-72B-Instruct"
 
     # Paths
     vector_store_path: str = "data/faiss.index"
